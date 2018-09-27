@@ -132,10 +132,10 @@ public class SearchActivity extends AppCompatActivity {
 
                             }
 
-                            Log.i("searchListAdapter COUNT","" + searchListAdapter.getCount());
-                            for(int i = 0 ; i<searchListAdapter.getCount(); i++){
-                                Log.i("searchListAdapter","" + searchListAdapter.getItem(i).getId() +  searchListAdapter.getItem(i).getUsername());
-                            }
+                           // Log.i("searchListAdapter COUNT","" + searchListAdapter.getCount());
+                           // for(int i = 0 ; i<searchListAdapter.getCount(); i++){
+                            //    Log.i("searchListAdapter","" + searchListAdapter.getItem(i).getId() +  searchListAdapter.getItem(i).getUsername());
+                         //   }
 
 
                         }catch (JSONException e){
