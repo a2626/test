@@ -60,8 +60,9 @@ public class SearchActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-
+                if(s.toString().length() == 0) {
+                    searchListAdapter.clear();
+                }
 
             }
 
@@ -84,7 +85,6 @@ public class SearchActivity extends AppCompatActivity {
 
     private void getSimilarUsers(String text){
         searchListAdapter.clear();
-        //arrayListUsers.clear();
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, URLS.get_similar_users+text,
                 new Response.Listener<String>() {
@@ -106,18 +106,19 @@ public class SearchActivity extends AppCompatActivity {
                                     JSONObject jsonObjectSingleUser = jsonArrayUsers.getJSONObject(i);
                                     Log.i("jsonsingleUser",jsonObjectSingleUser.toString());
 
-
                                     if(user_id != jsonObjectSingleUser.getInt("id")) {
 
-                                        User user = new User(jsonObjectSingleUser.getInt("id"), jsonObjectSingleUser.getString("email")
-                                                , jsonObjectSingleUser.getString("username"), jsonObjectSingleUser.getString("image")
-                                                , jsonObjectSingleUser.getInt("following"), jsonObjectSingleUser.getInt("followers")
-                                                , jsonObjectSingleUser.getInt("posts"));
+                                        if (!searchListContainsUser(searchListAdapter, jsonObjectSingleUser.getInt("id")))
+                                        {
+
+                                            User user = new User(jsonObjectSingleUser.getInt("id"), jsonObjectSingleUser.getString("email")
+                                                    , jsonObjectSingleUser.getString("username"), jsonObjectSingleUser.getString("image")
+                                                    , jsonObjectSingleUser.getInt("following"), jsonObjectSingleUser.getInt("followers")
+                                                    , jsonObjectSingleUser.getInt("posts"));
 
 
-                                        //  arrayListUsers.add(user);
-
-                                        searchListAdapter.add(user);
+                                            searchListAdapter.add(user);
+                                        }
                                     }
 
                                 }
@@ -129,6 +130,11 @@ public class SearchActivity extends AppCompatActivity {
 
                                 Toast.makeText(SearchActivity.this,jsonObject.getString("message"),Toast.LENGTH_LONG).show();
 
+                            }
+
+                            Log.i("searchListAdapter COUNT","" + searchListAdapter.getCount());
+                            for(int i = 0 ; i<searchListAdapter.getCount(); i++){
+                                Log.i("searchListAdapter","" + searchListAdapter.getItem(i).getId() +  searchListAdapter.getItem(i).getUsername());
                             }
 
 
@@ -152,5 +158,15 @@ public class SearchActivity extends AppCompatActivity {
 
 
 
+    }
+
+    boolean searchListContainsUser(SearchListAdapter searchListAdapter, int userId){
+        for(int i = 0 ; i<searchListAdapter.getCount(); i++){
+            if (searchListAdapter.getItem(i).getId() == userId){
+                return true;
+            }
+        }
+
+        return false;
     }
 }
