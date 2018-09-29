@@ -375,7 +375,6 @@ public class CameraFragment extends Fragment {
 
     private void cropRequest(Uri imageUri) {
         CropImage.activity(imageUri)
-                //.setActivityTitle("Cropper Demo")
                 .setGuidelines(CropImageView.Guidelines.ON)
                 .setMultiTouchEnabled(true)
                 .start(getContext(), this);
