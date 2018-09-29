@@ -6,45 +6,87 @@
     tools:context="com.company.insta.instagram.fragments.CameraFragment">
 
 
-  <LinearLayout
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:orientation="horizontal"
-      android:layout_gravity="center"
-      >
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        >
 
-      <Button
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_gravity="center"
-          android:text="Take Photo"
-          android:background="@color/colorAccent"
-          android:textColor="@color/colorWhite"
-          android:padding="5dp"
-          android:layout_margin="5dp"
-          android:id="@+id/capture_btn"
-          />
-
-
-      <Button
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_gravity="center"
-          android:text="OK"
-          android:background="@color/colorAccent"
-          android:textColor="@color/colorWhite"
-          android:padding="5dp"
-          android:layout_margin="5dp"
-          android:id="@+id/upload_btn"
-          />
+     <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text=" Select "
+            android:background="@color/colorAccent"
+            android:textColor="@color/colorWhite"
+            android:padding="5dp"
+            android:layout_margin="5dp"
+            android:id="@+id/capture_btn"
+            android:drawableStart="@drawable/ic_photo" />
 
 
-  </LinearLayout>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Save"
+            android:background="@color/colorAccent"
+            android:textColor="@color/colorWhite"
+            android:padding="5dp"
+            android:layout_margin="5dp"
+            android:id="@+id/upload_btn"
+            android:drawableStart="@drawable/ic_check"
+            android:visibility="invisible"
+            />
 
-    <ImageView
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:layout_marginTop="10dp"
-           android:layout_gravity="center"
-           android:id="@+id/captured_iv"/>
+
+    </LinearLayout>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center"
+            android:id="@+id/captured_iv"/>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            >
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Crop"
+                android:background="@color/colorPrimary"
+                android:textColor="@color/colorWhite"
+                android:padding="5dp"
+                android:layout_margin="5dp"
+                android:id="@+id/crop_btn"
+                android:drawableStart="@drawable/ic_crop"
+                android:visibility="invisible"
+                />
+
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Edit"
+                android:background="@color/colorPrimary"
+                android:textColor="@color/colorWhite"
+                android:padding="5dp"
+                android:layout_margin="5dp"
+                android:id="@+id/edit_btn"
+                android:drawableStart="@drawable/ic_edit"
+                android:visibility="invisible"
+                />
+        </LinearLayout>
+
 </LinearLayout>

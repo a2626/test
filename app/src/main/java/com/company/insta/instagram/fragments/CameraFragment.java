@@ -28,6 +28,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.company.insta.instagram.PhotoEditionActivity;
 import com.company.insta.instagram.R;
 import com.company.insta.instagram.helper.SharedPrefrenceManger;
 import com.company.insta.instagram.helper.URLS;
@@ -51,10 +52,10 @@ import static android.app.Activity.RESULT_OK;
 
 
 public class CameraFragment extends Fragment {
-    Button upload_btn, capture_btn;
-    ImageView captured_iv;
+    Button upload_btn, capture_btn, crop_btn, edit_btn;
+    public static ImageView captured_iv;
     Uri mImageUri;
-    final int CAPTURE_IMAGE = 1, GALLARY_PICK = 2;
+    final int CAPTURE_IMAGE = 1, GALLERY_PICK = 2;
     Bitmap bitmap;
     String mStoryTitle, imageToString, mProfileImage;
     boolean OkToUpload;
@@ -78,6 +79,8 @@ public class CameraFragment extends Fragment {
 
         upload_btn = (Button) view.findViewById(R.id.upload_btn);
         capture_btn = (Button) view.findViewById(R.id.capture_btn);
+        crop_btn = (Button) view.findViewById(R.id.crop_btn);
+        edit_btn = (Button) view.findViewById(R.id.edit_btn);
 
         captured_iv = (ImageView) view.findViewById(R.id.captured_iv);
 
@@ -109,7 +112,7 @@ public class CameraFragment extends Fragment {
                                 Intent galleryIntent = new Intent();
                                 galleryIntent.setType("image/*");
                                 galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
-                                startActivityForResult(Intent.createChooser(galleryIntent, "Select Image"), GALLARY_PICK);
+                                startActivityForResult(Intent.createChooser(galleryIntent, "Select Image"), GALLERY_PICK);
                                 break;
 
                             //take a photo using camera
@@ -130,8 +133,21 @@ public class CameraFragment extends Fragment {
                 storyAndImageTitle();
             }
         });
-    }
 
+        crop_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cropRequest(mImageUri);
+            }
+        });
+
+        edit_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivityForResult(new Intent(getContext(), PhotoEditionActivity.class), 101);
+            }
+        });
+    }
 
     private void capturePhoto() {
 
@@ -155,16 +171,12 @@ public class CameraFragment extends Fragment {
             //RESULT FROM CROPPING ACTIVITY
             if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
                 CropImage.ActivityResult result = CropImage.getActivityResult(data);
+
                 if (resultCode == RESULT_OK) {
                     try {
-                        bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), result.getUri());
+                        setOkToUpload(result.getUri());
 
-                        captured_iv.setImageDrawable(null);
-                        captured_iv.setImageBitmap(bitmap);
-
-                        OkToUpload = true;
-
-                    } catch (IOException e) {
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                 } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
@@ -173,38 +185,53 @@ public class CameraFragment extends Fragment {
                 }
             }
 
-            if (requestCode == CAPTURE_IMAGE || requestCode == CropImage.PICK_IMAGE_CHOOSER_REQUEST_CODE) {
+
+            else if (requestCode == CAPTURE_IMAGE || requestCode == CropImage.PICK_IMAGE_CHOOSER_REQUEST_CODE) {
                 if (mImageUri != null) {
 
                     try {
-
-                        bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), mImageUri);
-                        captured_iv.setImageBitmap(bitmap);
-                        OkToUpload = true;
-                        cropRequest(mImageUri);
-
+                        setOkToUpload(mImageUri);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
             }
 
-            if (requestCode == GALLARY_PICK || requestCode == CropImage.PICK_IMAGE_CHOOSER_REQUEST_CODE) {
+            else if (requestCode == GALLERY_PICK || requestCode == CropImage.PICK_IMAGE_CHOOSER_REQUEST_CODE) {
                 Uri uri = data.getData();
                 if (uri != null) {
                     try {
                         Uri imageUri = CropImage.getPickImageResultUri(getContext(), data);
-                        bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), imageUri);
-                        OkToUpload = true;
-                        cropRequest(imageUri);
+                        setOkToUpload(imageUri);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
             }
+            else {
+                // edit result
+                    Uri imageUri = data.getData();
+
+                    try {
+                        setOkToUpload(imageUri);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+            }
         } else {
             Log.e("Result CODE", "" + resultCode);
         }
+    }
+
+    private void setOkToUpload(Uri uri) throws IOException {
+        mImageUri = uri;
+        bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), mImageUri);
+        captured_iv.setImageDrawable(null);
+        captured_iv.setImageBitmap(bitmap);
+        OkToUpload = true;
+        upload_btn.setVisibility(view.VISIBLE);
+        crop_btn.setVisibility(view.VISIBLE);
+        edit_btn.setVisibility(view.VISIBLE);
     }
 
     private void storyAndImageTitle() {

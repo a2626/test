@@ -32,9 +32,15 @@
         <activity android:name=".SearchActivity" />
         <activity android:name=".SingleStoryActivity" />
         <activity android:name=".SettingsActivity" />
-        <activity android:name=".CheckLikedImageActivity"></activity>
-        <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
-            android:theme="@style/Base.Theme.AppCompat"/>
+        <activity android:name=".CheckLikedImageActivity" />
+        <activity
+            android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+            android:theme="@style/Base.Theme.AppCompat" />
+            <!--android:theme="@style/AppTheme.NoActionBar.Fullscreen"> -->
+        <activity
+            android:name="com.company.insta.instagram.PhotoEditionActivity"
+            android:label="@string/title_activity_photo_edition"
+            android:theme="@style/AppTheme.NoActionBar.Fullscreen">></activity>
     </application>
 
 </manifest>

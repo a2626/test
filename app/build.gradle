@@ -39,4 +39,19 @@ dependencies {
     /*Picasso*/
     implementation 'com.squareup.picasso:picasso:2.71828'
 
+    implementation 'com.theartofdev.edmodo:android-image-cropper:2.5.1'
+
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+
+    // image filters
+    implementation 'info.androidhive:imagefilters:1.0.7'
+
+    // butter knife
+    implementation 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+
+    // dexter M permissions
+    implementation 'com.karumi:dexter:4.1.0'
+
+    implementation 'com.android.support:recyclerview-v7:26.1.0'
 }
