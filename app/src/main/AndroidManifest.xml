@@ -33,6 +33,8 @@
         <activity android:name=".SingleStoryActivity" />
         <activity android:name=".SettingsActivity" />
         <activity android:name=".CheckLikedImageActivity"></activity>
+        <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+            android:theme="@style/Base.Theme.AppCompat"/>
     </application>
 
 </manifest>

@@ -41,18 +41,10 @@
 
   </LinearLayout>
 
-
-
     <ImageView
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="10dp"
-          android:layout_gravity="center"
-          android:id="@+id/captured_iv"/>
-
-
-
-
-
-
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_marginTop="10dp"
+           android:layout_gravity="center"
+           android:id="@+id/captured_iv"/>
 </LinearLayout>
