@@ -4,7 +4,7 @@ android {
     compileSdkVersion 26
     defaultConfig {
         applicationId "com.company.insta.instagram"
-        minSdkVersion 15
+        minSdkVersion 17
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
@@ -54,4 +54,9 @@ dependencies {
     implementation 'com.karumi:dexter:4.1.0'
 
     implementation 'com.android.support:recyclerview-v7:26.1.0'
+
+
+    implementation 'com.github.google:cameraview:d0b508a5ea'
+
+
 }

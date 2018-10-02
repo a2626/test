@@ -245,11 +245,11 @@ public class CameraFragment extends Fragment {
 
         final EditText editText = new EditText(getContext());
         editText.setTextColor(Color.BLACK);
-        editText.setHint("Set Title/Tags for story");
+        editText.setHint("Set Title/Tags for post");
         editText.setHintTextColor(Color.GRAY);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setTitle("Story Title");
+        builder.setTitle("Post Title");
         builder.setCancelable(false);
         builder.setView(editText);
 
@@ -344,7 +344,7 @@ public class CameraFragment extends Fragment {
 
 
         final ProgressDialog mProgrssDialog = new ProgressDialog(getContext());
-        mProgrssDialog.setTitle("Uploading Story");
+        mProgrssDialog.setTitle("Uploading post");
         mProgrssDialog.setMessage("Please wait....");
         mProgrssDialog.show();
 
@@ -361,7 +361,7 @@ public class CameraFragment extends Fragment {
                                 mProgrssDialog.dismiss();
 
 
-                                Toast.makeText(getContext(), "story uploaded successfully!", Toast.LENGTH_LONG).show();
+                                Toast.makeText(getContext(), "Post uploaded successfully!", Toast.LENGTH_LONG).show();
 
                                 FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
                                 ft.replace(R.id.main_fragment_content, new HomeFragment());

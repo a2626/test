@@ -1,7 +1,6 @@
 package com.company.insta.instagram.helper;
 
 /**
- * Created by mostafa on 3/1/2018.
  */
 
 public class URLS {

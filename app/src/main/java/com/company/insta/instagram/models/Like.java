@@ -1,7 +1,6 @@
 package com.company.insta.instagram.models;
 
 /**
- * Created by mostafa on 3/25/2018.
  */
 
 public class Like {

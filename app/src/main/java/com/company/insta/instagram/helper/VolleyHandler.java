@@ -7,7 +7,6 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 
 /**
- * Created by mostafa on 3/1/2018.
  */
 
 public class VolleyHandler {

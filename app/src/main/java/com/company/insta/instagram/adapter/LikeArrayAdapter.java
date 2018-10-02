@@ -18,7 +18,6 @@ import java.util.List;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
- * Created by mostafa on 3/25/2018.
  */
 
 public class LikeArrayAdapter extends ArrayAdapter<Like> {
