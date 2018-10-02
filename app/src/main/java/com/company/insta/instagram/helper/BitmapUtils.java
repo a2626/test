@@ -235,4 +235,10 @@ public class BitmapUtils {
         String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
         return Uri.parse(path);
     }
+
+    public static Bitmap CreateBitmapFromByteArray(final byte[] image){
+        Bitmap bitmap = BitmapFactory.decodeByteArray(image, 0, image.length);
+
+        return bitmap;
+    }
 }

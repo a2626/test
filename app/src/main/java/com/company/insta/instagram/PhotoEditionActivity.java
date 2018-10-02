@@ -87,13 +87,13 @@ public class PhotoEditionActivity extends AppCompatActivity implements FiltersLi
         tabLayout.setupWithViewPager(viewPager);
     }
 
+
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
         // adding filter list fragment
         filtersListFragment = new FiltersListFragment();
         filtersListFragment.setListener(this);
-
 
         // adding edit image fragment
         editImageFragment = new EditImageFragment();
@@ -194,9 +194,7 @@ public class PhotoEditionActivity extends AppCompatActivity implements FiltersLi
         }
     }
 
-    // load the default image from assets on app launch
     private void loadImage() {
-
         Drawable drawable = CameraFragment.captured_iv.getDrawable();
         BitmapDrawable bitmapDrawable = ((BitmapDrawable) drawable);
         originalImage = bitmapDrawable.getBitmap();
@@ -231,7 +229,6 @@ public class PhotoEditionActivity extends AppCompatActivity implements FiltersLi
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == RESULT_OK) {
-
             Drawable drawable = CameraFragment.captured_iv.getDrawable();
             BitmapDrawable bitmapDrawable = ((BitmapDrawable) drawable);
             Bitmap bitmap = bitmapDrawable.getBitmap();

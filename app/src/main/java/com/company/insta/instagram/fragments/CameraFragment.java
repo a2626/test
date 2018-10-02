@@ -28,6 +28,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.company.insta.instagram.PhotoCameraActivity;
 import com.company.insta.instagram.PhotoEditionActivity;
 import com.company.insta.instagram.R;
 import com.company.insta.instagram.helper.SharedPrefrenceManger;
@@ -55,7 +56,7 @@ public class CameraFragment extends Fragment {
     Button upload_btn, capture_btn, crop_btn, edit_btn;
     public static ImageView captured_iv;
     Uri mImageUri;
-    final int CAPTURE_IMAGE = 1, GALLERY_PICK = 2;
+    final int CAPTURE_IMAGE = 1, GALLERY_PICK = 2, PHOTO_EDIT = 101, CAMERA_PHOTO = 102;
     Bitmap bitmap;
     String mStoryTitle, imageToString, mProfileImage;
     boolean OkToUpload;
@@ -70,6 +71,8 @@ public class CameraFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -92,7 +95,6 @@ public class CameraFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
 
         getProfileImage();
 
@@ -117,7 +119,8 @@ public class CameraFragment extends Fragment {
 
                             //take a photo using camera
                             case 1:
-                                capturePhoto();
+                               // capturePhoto();
+                                startActivityForResult(new Intent(getContext(), PhotoCameraActivity.class), CAMERA_PHOTO);
                                 break;
                         }
                     }
@@ -144,20 +147,10 @@ public class CameraFragment extends Fragment {
         edit_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivityForResult(new Intent(getContext(), PhotoEditionActivity.class), 101);
+                startActivityForResult(new Intent(getContext(), PhotoEditionActivity.class), PHOTO_EDIT);
             }
         });
     }
-
-    private void capturePhoto() {
-
-        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        String imageName = "image.jpg";
-        mImageUri = Uri.fromFile(new File(Environment.getExternalStorageDirectory(), imageName));
-        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, mImageUri);
-        startActivityForResult(cameraIntent, CAPTURE_IMAGE);
-    }
-
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -184,8 +177,6 @@ public class CameraFragment extends Fragment {
                     Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
-
-
             else if (requestCode == CAPTURE_IMAGE || requestCode == CropImage.PICK_IMAGE_CHOOSER_REQUEST_CODE) {
                 if (mImageUri != null) {
 
@@ -195,9 +186,7 @@ public class CameraFragment extends Fragment {
                         e.printStackTrace();
                     }
                 }
-            }
-
-            else if (requestCode == GALLERY_PICK || requestCode == CropImage.PICK_IMAGE_CHOOSER_REQUEST_CODE) {
+            } else if (requestCode == GALLERY_PICK || requestCode == CropImage.PICK_IMAGE_CHOOSER_REQUEST_CODE) {
                 Uri uri = data.getData();
                 if (uri != null) {
                     try {
@@ -207,16 +196,25 @@ public class CameraFragment extends Fragment {
                         e.printStackTrace();
                     }
                 }
-            }
-            else {
+            } else if (requestCode == PHOTO_EDIT) {
                 // edit result
-                    Uri imageUri = data.getData();
+                Uri imageUri = data.getData();
 
-                    try {
-                        setOkToUpload(imageUri);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+                try {
+                    setOkToUpload(imageUri);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            } else if (requestCode == CAMERA_PHOTO) {
+                // edit result
+                Uri imageUri = data.getData();
+
+                try {
+                    setOkToUpload(imageUri);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         } else {
             Log.e("Result CODE", "" + resultCode);
@@ -230,6 +228,15 @@ public class CameraFragment extends Fragment {
         captured_iv.setImageBitmap(bitmap);
         OkToUpload = true;
         upload_btn.setVisibility(view.VISIBLE);
+
+
+        int color = Color.parseColor("#c13584");
+
+        upload_btn.setTextColor(color);
+       // Drawable icon=this.getResources().getDrawable(R.drawable.ic_done_all_enabled);
+     //   upload_btn.setCompoundDrawables(icon, null, null, null);
+        upload_btn.setEnabled(true);
+
         crop_btn.setVisibility(view.VISIBLE);
         edit_btn.setVisibility(view.VISIBLE);
     }
