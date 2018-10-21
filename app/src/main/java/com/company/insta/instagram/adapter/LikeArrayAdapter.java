@@ -69,21 +69,25 @@ public class LikeArrayAdapter extends ArrayAdapter<Like> {
         if(like != null){
 
             CircleImageView story_image = (CircleImageView) view.findViewById(R.id.story_image);
+
+            CircleImageView profile_image = (CircleImageView) view.findViewById(R.id.profile_image_);
+
             TextView story_username_tv = view.findViewById(R.id.story_username_tv);
 
             if(!like.getStory_image().isEmpty()) {
                 Picasso.get().load(like.getStory_image()).error(R.drawable.user).into(story_image);
             }
 
-
-            if(!like.getStory_username().isEmpty()){
-
-                story_username_tv.setText("you have liked " + like.getStory_username() + "'s image");
+            if(!like.getuser_profile().isEmpty()) {
+                Picasso.get().load(like.getuser_profile()).error(R.drawable.user).into(profile_image);
             }
 
+            if(!like.getStory_username().isEmpty() && !like.getaction().isEmpty()){
+                story_username_tv.setText( like.getStory_username() + " " + like.getaction());
+            }else if (!like.getStory_username().isEmpty()){
+                story_username_tv.setText( like.getStory_username());
+            }
         }
-
-
 
         return view;
     }

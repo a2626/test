@@ -1,11 +1,16 @@
 package com.company.insta.instagram;
 
 import android.content.DialogInterface;
+import android.net.Uri;
+import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
@@ -26,10 +31,13 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.company.insta.instagram.authentication.LoginActivity;
+import com.company.insta.instagram.fragments.ActivityFeedFragment;
 import com.company.insta.instagram.fragments.CameraFragment;
+import com.company.insta.instagram.fragments.FriendsActFragment;
 import com.company.insta.instagram.fragments.HomeFragment;
 import com.company.insta.instagram.fragments.LikesFragment;
 import com.company.insta.instagram.fragments.ProfieFragment;
+import com.company.insta.instagram.helper.ActivityFeedAdapter;
 import com.company.insta.instagram.helper.SharedPrefrenceManger;
 import com.company.insta.instagram.helper.URLS;
 import com.company.insta.instagram.helper.VolleyHandler;
@@ -39,13 +47,22 @@ import com.squareup.picasso.Picasso;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class MainActivity extends AppCompatActivity {
+import butterknife.BindView;
+
+public class MainActivity extends AppCompatActivity implements FriendsActFragment.OnFragmentInteractionListener, LikesFragment.OnFragmentInteractionListener {
 
     DrawerLayout mDrawerLayout;
     ActionBarDrawerToggle mActionDrawerToggle;
+    BottomNavigationView mBottomNavigationView;
     NavigationView mNavigationView;
     User user;
     String mImageProfile,mEmail,mUsername ;
+
+    @BindView(R.id.feedtabs)
+    TabLayout tabLayout;
+
+    @BindView(R.id.feedviewpager)
+    ViewPager viewPager;
 
 
     @Override
@@ -53,16 +70,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         //layout variables
         mDrawerLayout = findViewById(R.id.main_drawer_layout);
-        mNavigationView = findViewById(R.id.main_nav_view);
+        mBottomNavigationView = findViewById(R.id.main_nav_view);
+
+        mNavigationView = findViewById(R.id.navigation);
 
 
         mActionDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
         mDrawerLayout.addDrawerListener(mActionDrawerToggle);
         mActionDrawerToggle.syncState();
-       // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         setSupportActionBar((Toolbar)findViewById(R.id.my_toolbar));
         getSupportActionBar().setTitle("Instagram");
@@ -70,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_home_menu);
 
 
-         user = SharedPrefrenceManger.getInstance(this).getUserData();
+        user = SharedPrefrenceManger.getInstance(this).getUserData();
 
 
 
@@ -81,15 +98,32 @@ public class MainActivity extends AppCompatActivity {
         changeFragmentDisplay(R.id.home);
 
         //listener for navigation view
-        mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+        mBottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
                   changeFragmentDisplay(item.getItemId());
                   return true;
             }
         });
 
+        //listener for navigation view
+        mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+                if(item.getItemId() == R.id.settings){
+                    Intent settingsIntent = new Intent(getBaseContext(), SettingsActivity.class);
+                    settingsIntent.putExtra("imageProfile",mImageProfile);
+                    settingsIntent.putExtra("email",mEmail);
+                    settingsIntent.putExtra("username",mUsername);
+                    startActivity(settingsIntent);
+                } else if (item.getItemId() == R.id.log_out) {
+                    logUserOutIFTheyWant();
+                }
+
+                return true;
+            }
+        });
 
     }
 
@@ -100,30 +134,14 @@ public class MainActivity extends AppCompatActivity {
 
         if (item == R.id.home) {
             fragment = new HomeFragment();
-
-
         } else if (item == R.id.search) {
-            startActivity(new Intent(MainActivity.this,SearchActivity.class));
-
-
+            startActivity(new Intent(MainActivity.this, SearchActivity.class));
         } else if (item == R.id.profile) {
             fragment = new ProfieFragment();
-
-
-
        } else if (item == R.id.likes) {
-        fragment = new LikesFragment();
-
-
+            fragment = new ActivityFeedFragment();
         } else if (item == R.id.camera) {
             fragment = new CameraFragment();
-
-
-
-       } else if (item == R.id.log_out) {
-
-            logUserOutIFTheyWant();
-
         } else {
             Toast.makeText(MainActivity.this, "Error", Toast.LENGTH_LONG).show();
         }
@@ -136,8 +154,6 @@ public class MainActivity extends AppCompatActivity {
             ft.replace(R.id.main_fragment_content,fragment);
             ft.commit();
         }
-
-
     }
 
 
@@ -156,8 +172,6 @@ public class MainActivity extends AppCompatActivity {
                 sharedPrefrenceManger.logUserOut();
                 startActivity(new Intent(MainActivity.this,LoginActivity.class));
                 dialog.dismiss();
-
-
             }
         });
 
@@ -178,12 +192,6 @@ public class MainActivity extends AppCompatActivity {
 
         if (mActionDrawerToggle.onOptionsItemSelected(item)) {
             return true;
-        }else if(item.getItemId() == R.id.settings){
-            Intent settingsIntent = new Intent(this,SettingsActivity.class);
-            settingsIntent.putExtra("imageProfile",mImageProfile);
-            settingsIntent.putExtra("email",mEmail);
-            settingsIntent.putExtra("username",mUsername);
-            startActivity(settingsIntent);
         }
         return super.onOptionsItemSelected(item);
     }
@@ -322,13 +330,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onFragmentInteraction(Uri uri) {
 
-
-
-
-
-
-
-
-
+    }
 }
