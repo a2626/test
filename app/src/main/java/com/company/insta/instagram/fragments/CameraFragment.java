@@ -49,9 +49,13 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+
+<<<<<<< HEAD
 import static android.app.Activity.RESULT_OK;
 
 
+=======
+>>>>>>> a5886e7841751b9404544881da94b88597c390de
 public class CameraFragment extends Fragment {
     Button upload_btn, capture_btn, crop_btn, edit_btn;
     public static ImageView captured_iv;
@@ -61,6 +65,12 @@ public class CameraFragment extends Fragment {
     String mStoryTitle, imageToString, mProfileImage;
     boolean OkToUpload;
     View view;
+<<<<<<< HEAD
+
+
+
+=======
+>>>>>>> a5886e7841751b9404544881da94b88597c390de
 
 
     public CameraFragment() {
@@ -79,6 +89,10 @@ public class CameraFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.fragment_camera, container, false);
+<<<<<<< HEAD
+
+=======
+>>>>>>> a5886e7841751b9404544881da94b88597c390de
 
         upload_btn = (Button) view.findViewById(R.id.upload_btn);
         capture_btn = (Button) view.findViewById(R.id.capture_btn);
@@ -114,7 +128,18 @@ public class CameraFragment extends Fragment {
                                 Intent galleryIntent = new Intent();
                                 galleryIntent.setType("image/*");
                                 galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
+<<<<<<< HEAD
+<<<<<<< HEAD
+                                startActivityForResult(Intent.createChooser(galleryIntent, "Select Image"), GALLARY_PICK);
+
+
+
+=======
                                 startActivityForResult(Intent.createChooser(galleryIntent, "Select Image"), GALLERY_PICK);
+>>>>>>> a5886e7841751b9404544881da94b88597c390de
+=======
+                                startActivityForResult(Intent.createChooser(galleryIntent, "Select Image"), GALLERY_PICK);
+>>>>>>> a5886e7841751b9404544881da94b88597c390de
                                 break;
 
                             //take a photo using camera
@@ -301,12 +326,21 @@ public class CameraFragment extends Fragment {
                             JSONObject jsonObject = new JSONObject(response);
 
                             if (!jsonObject.getBoolean("error")) {
+<<<<<<< HEAD
 
                                 JSONObject jsonObjectUser = jsonObject.getJSONObject("user");
 
                                 mProfileImage = jsonObjectUser.getString("image");
                             } else {
 
+=======
+
+                                JSONObject jsonObjectUser = jsonObject.getJSONObject("user");
+
+                                mProfileImage = jsonObjectUser.getString("image");
+                            } else {
+
+>>>>>>> a5886e7841751b9404544881da94b88597c390de
                                 Toast.makeText(getContext(), jsonObject.getString("message"), Toast.LENGTH_LONG).show();
                             }
                         } catch (JSONException e) {
