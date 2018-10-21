@@ -11,9 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -21,7 +19,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.company.insta.instagram.CheckLikedImageActivity;
-import com.company.insta.instagram.MainActivity;
 import com.company.insta.instagram.R;
 import com.company.insta.instagram.helper.SharedPrefrenceManger;
 import com.company.insta.instagram.helper.URLS;
@@ -29,7 +26,6 @@ import com.company.insta.instagram.helper.VolleyHandler;
 import com.company.insta.instagram.adapter.LikeArrayAdapter;
 import com.company.insta.instagram.models.Like;
 import com.company.insta.instagram.models.User;
-import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -37,19 +33,18 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import com.company.insta.instagram.R;
 
-public class LikesFragment extends Fragment {
-
-
+public class FriendsActFragment extends Fragment {
     ListView likes_lv;
     ArrayList<Like> arrayLikesList;
     LikeArrayAdapter likeArrayAdapter;
 
     private FriendsActFragment.OnFragmentInteractionListener mListener;
 
-    public LikesFragment() {
-        // Required empty public constructor
 
+    public FriendsActFragment() {
+        // Required empty public constructor
     }
 
 
@@ -75,7 +70,7 @@ public class LikesFragment extends Fragment {
         //like Home fragment
 
         //get all story id associated with current user_id from likes db
-        // getAllStoryIds();
+       // getAllStoryIds();
 
         getAllStoriesThatWeLiked();
 
@@ -102,7 +97,7 @@ public class LikesFragment extends Fragment {
         int user_id = user.getId();
 
         Log.i("user_id", "getAllStoriesThatWeLiked: user id" + user_id);
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, URLS.all_stories_we_liked+user_id,
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, URLS.all_following_activities+user_id,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -160,6 +155,7 @@ public class LikesFragment extends Fragment {
         VolleyHandler.getInstance(getContext().getApplicationContext()).addRequetToQueue(stringRequest);
 
     }
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
