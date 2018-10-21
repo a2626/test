@@ -18,6 +18,9 @@
     <string name="tab_filters">FILTERS</string>
     <string name="tab_edit">EDIT</string>
 
+    <string name="tab_myAct">YOU</string>
+    <string name="tab_friendsAct">FOLLOWING</string>
+
 
     <string name="roboto_medium">sans-serif-medium</string>
     <string name="filter_normal">Normal</string>
@@ -34,5 +37,6 @@
     <string name="flash_auto">Flash auto</string>
     <string name="flash_off">Flash off</string>
     <string name="flash_on">Flash on</string>
+    <string name="title_activity_feed">ActivityFeedActivity</string>
 
 </resources>
