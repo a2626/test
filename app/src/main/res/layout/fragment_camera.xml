@@ -1,4 +1,5 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -6,12 +7,15 @@
     tools:context="com.company.insta.instagram.fragments.CameraFragment">
 
 
+<<<<<<< HEAD
+
   <LinearLayout
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:orientation="horizontal"
       android:layout_gravity="center"
       >
+
 
       <Button
           android:layout_width="wrap_content"
@@ -23,7 +27,9 @@
           android:padding="5dp"
           android:layout_margin="5dp"
           android:id="@+id/capture_btn"
+
           />
+
 
 
       <Button
@@ -42,17 +48,83 @@
   </LinearLayout>
 
 
+=======
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        >
+
+        <Button
+            android:id="@+id/capture_btn"
+            android:layout_width="42dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="5dp"
+            android:background="@color/btn_default_light_normal"
+            android:drawableStart="@drawable/ic_photo"
+            android:padding="5dp"
+            android:textColor="#c13584" />
+
+
+        <Button
+            android:id="@+id/upload_btn"
+            android:layout_width="73dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="5dp"
+            android:background="@color/btn_default_light_normal"
+            android:enabled="false"
+            android:padding="5dp"
+            android:text="Save"
+            android:textColor="@color/btn_context_menu_pressed" />
+
+
+    </LinearLayout>
+>>>>>>> a5886e7841751b9404544881da94b88597c390de
+
 
     <ImageView
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="10dp"
-          android:layout_gravity="center"
-          android:id="@+id/captured_iv"/>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center"
+            android:id="@+id/captured_iv"/>
 
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            >
+
+            <Button
+                android:id="@+id/crop_btn"
+                android:layout_width="59dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="5dp"
+                android:background="@color/btn_default_light_normal"
+                android:drawableStart="@drawable/ic_crop"
+                android:padding="5dp"
+                android:textColor="@color/colorWhite"
+                android:visibility="invisible" />
 
 
-
+            <Button
+                android:id="@+id/edit_btn"
+                android:layout_width="56dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="5dp"
+                android:background="@color/btn_default_light_normal"
+                android:drawableStart="@drawable/ic_edit"
+                android:padding="5dp"
+                android:textColor="@color/colorWhite"
+                android:visibility="invisible" />
+        </LinearLayout>
 
 </LinearLayout>

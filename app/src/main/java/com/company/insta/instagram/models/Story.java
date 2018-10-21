@@ -1,7 +1,6 @@
 package com.company.insta.instagram.models;
 
 /**
- * Created by mostafa on 3/10/2018.
  */
 
 public class Story {
@@ -68,8 +67,6 @@ public class Story {
     public void setLike(int like) {
         this.like = like;
     }
-
-
 
     public String getTitle() {
         return title;

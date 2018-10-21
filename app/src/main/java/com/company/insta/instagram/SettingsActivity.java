@@ -100,9 +100,6 @@ public class SettingsActivity extends AppCompatActivity {
 
     }
 
-
-
-
     private void updateUserData(){
 
         final String email = email_et.getText().toString();

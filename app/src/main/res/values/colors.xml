@@ -5,6 +5,10 @@
     <color name="colorAccent">#FF4081</color>
     <color name="transparent_bg">#2affff</color>
 
+    <color name="color_option_menu">#FF3990</color>
+    <color name="filter_label_normal">#8A8889</color>
+    <color name="filter_label_selected">#221F20</color>
+
     <color name="colorWhite">#ffffff</color>
     <color name="colorPurple">#833ab4</color>
     <color name="colorSemiPurple">#c13584</color>

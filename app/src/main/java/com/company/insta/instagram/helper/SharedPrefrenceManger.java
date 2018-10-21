@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import com.company.insta.instagram.models.User;
 
 /**
- * Created by mostafa on 3/1/2018.
  */
 
 public class SharedPrefrenceManger {

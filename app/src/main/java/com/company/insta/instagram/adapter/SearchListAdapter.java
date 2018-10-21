@@ -23,7 +23,6 @@ import java.util.List;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
- * Created by mostafa on 3/18/2018.
  */
 
 public class SearchListAdapter extends ArrayAdapter<User> {

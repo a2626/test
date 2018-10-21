@@ -1,6 +1,8 @@
 package com.company.insta.instagram.fragments;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -9,7 +11,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -17,6 +21,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.company.insta.instagram.CheckLikedImageActivity;
+import com.company.insta.instagram.MainActivity;
 import com.company.insta.instagram.R;
 import com.company.insta.instagram.helper.SharedPrefrenceManger;
 import com.company.insta.instagram.helper.URLS;
@@ -24,6 +29,7 @@ import com.company.insta.instagram.helper.VolleyHandler;
 import com.company.insta.instagram.adapter.LikeArrayAdapter;
 import com.company.insta.instagram.models.Like;
 import com.company.insta.instagram.models.User;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -37,10 +43,13 @@ public class LikesFragment extends Fragment {
 
     ListView likes_lv;
     ArrayList<Like> arrayLikesList;
-     LikeArrayAdapter likeArrayAdapter;
+    LikeArrayAdapter likeArrayAdapter;
+
+    private FriendsActFragment.OnFragmentInteractionListener mListener;
 
     public LikesFragment() {
         // Required empty public constructor
+
     }
 
 
@@ -61,12 +70,14 @@ public class LikesFragment extends Fragment {
         arrayLikesList = new ArrayList<Like>();
         likeArrayAdapter = new LikeArrayAdapter(getContext(),R.layout.like_single_item,arrayLikesList);
 
-          likes_lv.setAdapter(likeArrayAdapter);
+        likes_lv.setAdapter(likeArrayAdapter);
 
         //like Home fragment
 
         //get all story id associated with current user_id from likes db
-        getAllStoryIds();
+        // getAllStoryIds();
+
+        getAllStoriesThatWeLiked();
 
 
         //then
@@ -80,96 +91,18 @@ public class LikesFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-
-        likes_lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                Like like = arrayLikesList.get(position);
-
-
-                if(like != null) {
-                    String image = like.getStory_image();
-                    String username = like.getStory_username();
-
-                    Intent intent = new Intent(getContext(), CheckLikedImageActivity.class);
-                    intent.putExtra("image_url", image);
-                    intent.putExtra("image_username", username);
-
-                    startActivity(intent);
-                }
-
-            }
-        });
-
-
-
     }
 
-    private void getAllStoryIds(){
+
+
+    private void getAllStoriesThatWeLiked(){
 
 
         User user = SharedPrefrenceManger.getInstance(getContext()).getUserData();
         int user_id = user.getId();
 
-
-
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, URLS.get_all_story_ids+user_id,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-
-                        try {
-
-
-                            JSONObject jsonObject = new JSONObject(response);
-
-                            if(!jsonObject.getBoolean("error")){
-
-                                JSONArray jsonArrayIds =  jsonObject.getJSONArray("ids");
-
-                                Log.i("storyArrayids",jsonArrayIds.toString());
-                                //arrayid : [6,8,10,12]
-
-                                String ids = jsonArrayIds.toString();
-                                ids = ids.replace("[","");
-                                ids = ids.replace("]","");
-
-
-                                Log.i("arrayidsNew",ids);
-                                getAllStoriesThatWeLiked(ids);
-
-                            }else{
-
-                                Toast.makeText(getContext(),jsonObject.getString("message"),Toast.LENGTH_LONG).show();
-
-                            }
-
-
-                        }catch (JSONException e){
-                            e.printStackTrace();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getContext(),error.getMessage(),Toast.LENGTH_LONG).show();
-
-                    }
-                }
-
-
-        );
-
-        VolleyHandler.getInstance(getContext().getApplicationContext()).addRequetToQueue(stringRequest);
-    }
-
-
-    private void getAllStoriesThatWeLiked(String ids){
-
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, URLS.all_stories_we_liked+ids,
+        Log.i("user_id", "getAllStoriesThatWeLiked: user id" + user_id);
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, URLS.all_stories_we_liked+user_id,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -179,7 +112,7 @@ public class LikesFragment extends Fragment {
 
                             if(!jsonObject.getBoolean("error")){
 
-                                JSONArray jsonObjectStories =  jsonObject.getJSONArray("stories");
+                                JSONArray jsonObjectStories =  jsonObject.getJSONArray("likes");
 
                                 Log.i("arrayStoriesforLikes",jsonObjectStories.toString());
 
@@ -187,9 +120,12 @@ public class LikesFragment extends Fragment {
                                     JSONObject jsonObjectSingleStory = jsonObjectStories.getJSONObject(i);
                                     Log.i("jsonsinglestoryLikes",jsonObjectSingleStory.toString());
 
-                                    Like like = new Like(jsonObjectSingleStory.getInt("id"),jsonObjectSingleStory.getString("image_url"),
-                                            jsonObjectSingleStory.getString("username"));
+                                    //     public Like( String story_image, String story_username, String user_profile, String action) {
 
+                                    Like like = new Like(jsonObjectSingleStory.getString("image_url"),
+                                            jsonObjectSingleStory.getString("username"),
+                                            jsonObjectSingleStory.getString("profile"),
+                                            jsonObjectSingleStory.getString("action"));
 
                                     arrayLikesList.add(like);
 
@@ -225,10 +161,44 @@ public class LikesFragment extends Fragment {
 
     }
 
+    // TODO: Rename method, update argument and hook method into UI event
+    public void onButtonPressed(Uri uri) {
+        if (mListener != null) {
+            mListener.onFragmentInteraction(uri);
+        }
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof FriendsActFragment.OnFragmentInteractionListener) {
+            mListener = (FriendsActFragment.OnFragmentInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
+    }
 
 
-
-
-
+    /**
+     * This interface must be implemented by activities that contain this
+     * fragment to allow an interaction in this fragment to be communicated
+     * to the activity and potentially other fragments contained in that
+     * activity.
+     * <p>
+     * See the Android Training lesson <a href=
+     * "http://developer.android.com/training/basics/fragments/communicating.html"
+     * >Communicating with Other Fragments</a> for more information.
+     */
+    public interface OnFragmentInteractionListener {
+        // TODO: Update argument type and name
+        void onFragmentInteraction(Uri uri);
+    }
 
 }

@@ -1,7 +1,6 @@
 package com.company.insta.instagram.helper;
 
 /**
- * Created by mostafa on 3/1/2018.
  */
 
 public class URLS {
@@ -11,7 +10,8 @@ public class URLS {
     public static final String upload_story_image = "http://lucas091750.000webhostapp.com/upload_story_image.php";
     public static final String get_following_ids = "http://lucas091750.000webhostapp.com/get_following_ids.php?user_id=";
     public static final String lasted_news_feed = "http://lucas091750.000webhostapp.com/latest_news_feed.php?following_ids[]=";
-    public static final String all_stories_we_liked = "http://lucas091750.000webhostapp.com/all_stories_we_liked.php?story_ids[]=";
+    public static final String all_stories_we_liked = "http://lucas091750.000webhostapp.com/all_stories_we_liked.php?user_id=";
+    public static final String all_following_activities = "http://lucas091750.000webhostapp.com/all_following_activities.php?user_id=";
     public static final String get_all_comments = "http://lucas091750.000webhostapp.com/get_all_comments.php?story_id=";
     public static final String send_comment = "http://lucas091750.000webhostapp.com/send_comment.php";
     public static final String check_following_state = "http://lucas091750.000webhostapp.com/check_following_state.php?other_user_id=";
@@ -19,6 +19,7 @@ public class URLS {
     public static final String follow_this_person = "http://lucas091750.000webhostapp.com/follow_this_person.php?other_user_id=";
     public static final String get_user_data = "http://lucas091750.000webhostapp.com/get_user_data.php?user_id=";
     public static final String get_similar_users = "http://lucas091750.000webhostapp.com/get_similar_users.php?text=";
+    public static final String get_suggested_users = "http://lucas091750.000webhostapp.com/get_suggested_users.php?user_id=";
     public static final String get_all_images = "http://lucas091750.000webhostapp.com/get_all_images.php?id=";
     public static final String update_profile_image = "http://lucas091750.000webhostapp.com/update_profile_image.php";
     public static final String update_user_data = "http://lucas091750.000webhostapp.com/update_user_data.php";

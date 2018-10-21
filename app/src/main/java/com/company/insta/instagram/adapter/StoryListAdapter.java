@@ -35,7 +35,6 @@ import java.util.ArrayList;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
- * Created by mostafa on 3/10/2018.
  */
 
 public class StoryListAdapter extends ArrayAdapter<Story> {

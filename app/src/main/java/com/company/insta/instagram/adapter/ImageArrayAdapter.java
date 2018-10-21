@@ -20,7 +20,6 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 /**
- * Created by mostafa on 3/20/2018.
  */
 
 public class ImageArrayAdapter extends ArrayAdapter<Image> {

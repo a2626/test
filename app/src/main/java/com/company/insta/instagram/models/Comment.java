@@ -1,7 +1,6 @@
 package com.company.insta.instagram.models;
 
 /**
- * Created by mostafa on 3/15/2018.
  */
 
 public class Comment {
