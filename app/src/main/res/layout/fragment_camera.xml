@@ -7,51 +7,6 @@
     tools:context="com.company.insta.instagram.fragments.CameraFragment">
 
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-  <LinearLayout
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:orientation="horizontal"
-      android:layout_gravity="center"
-      >
-
-
-      <Button
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_gravity="center"
-          android:text="Take Photo"
-          android:background="@color/colorAccent"
-          android:textColor="@color/colorWhite"
-          android:padding="5dp"
-          android:layout_margin="5dp"
-          android:id="@+id/capture_btn"
-
-          />
-
-
-
-      <Button
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_gravity="center"
-          android:text="OK"
-          android:background="@color/colorAccent"
-          android:textColor="@color/colorWhite"
-          android:padding="5dp"
-          android:layout_margin="5dp"
-          android:id="@+id/upload_btn"
-          />
-
-
-  </LinearLayout>
-
-
-=======
-=======
->>>>>>> a5886e7841751b9404544881da94b88597c390de
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -86,13 +41,7 @@
 
 
     </LinearLayout>
-<<<<<<< HEAD
->>>>>>> a5886e7841751b9404544881da94b88597c390de
 
-
-=======
-
->>>>>>> a5886e7841751b9404544881da94b88597c390de
     <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

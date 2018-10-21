@@ -5,13 +5,9 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.FLASHLIGHT" />
 
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
-    <uses-feature
-        android:name="android.hardware.camera.flash"
-        android:required="false" />
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
@@ -37,11 +33,6 @@
         <activity android:name=".SingleStoryActivity" />
         <activity android:name=".SettingsActivity" />
         <activity android:name=".CheckLikedImageActivity" />
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> a5886e7841751b9404544881da94b88597c390de
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />
@@ -55,11 +46,7 @@
         <activity
             android:name=".PhotoCameraActivity"
             android:label="@string/title_activity_photo_camera"
-            android:theme="@style/AppTheme"></activity>
-<<<<<<< HEAD
->>>>>>> a5886e7841751b9404544881da94b88597c390de
-=======
->>>>>>> a5886e7841751b9404544881da94b88597c390de
+            android:theme="@style/AppTheme" />
     </application>
 
 </manifest>

@@ -118,7 +118,6 @@ public class ProfieFragment extends Fragment {
         settingsIntenet.putExtra("posts",posts);
 
         getContext().startActivity(settingsIntenet);
-
     }
 
 
