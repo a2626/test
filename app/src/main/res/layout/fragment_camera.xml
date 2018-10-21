@@ -8,6 +8,7 @@
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
   <LinearLayout
       android:layout_width="wrap_content"
@@ -49,6 +50,8 @@
 
 
 =======
+=======
+>>>>>>> a5886e7841751b9404544881da94b88597c390de
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -83,9 +86,13 @@
 
 
     </LinearLayout>
+<<<<<<< HEAD
 >>>>>>> a5886e7841751b9404544881da94b88597c390de
 
 
+=======
+
+>>>>>>> a5886e7841751b9404544881da94b88597c390de
     <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
